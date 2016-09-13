@@ -9,7 +9,7 @@
     "build": "webpack"
   },
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
     "clean-webpack-plugin": "^0.1.8",
     "copy-webpack-plugin": "^1.1.1",
