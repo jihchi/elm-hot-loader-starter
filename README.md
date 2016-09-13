@@ -8,7 +8,7 @@
 ## Setup
 ```shell
 # clone this repository
-git clone https://github.com/fluxxu/elm-hot-loader-starter.git
+git clone https://github.com/jihchi/elm-hot-loader-starter.git
 cd elm-hot-loader-starter
 # install node dependencies
 npm install
