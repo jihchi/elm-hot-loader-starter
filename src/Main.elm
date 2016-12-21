@@ -1,15 +1,18 @@
 port module Main exposing (..)
 
-import Html exposing (div, button, text, h2, input, ul, li)
-import Html.App exposing (program)
+import Html exposing (programWithFlags, div, button, text, h2, input, ul, li)
 import Html.Events exposing (onClick, onInput)
 import Html.Attributes exposing (..)
 import Time
 
 
-main : Program Never
+type alias Flags = {
+  swapCount : Int
+}
+
+main : Program Flags Model Msg
 main =
-  program
+  programWithFlags
     { init = init
     , view = view
     , update = update
@@ -21,14 +24,15 @@ main =
 
 type alias Model = 
   { count : Int
+  , swapCount: Int -- this will be updated by elm-hot callback. See index.js
   , elapsed : Int
   , alertText : String
   , logs : List String
   }
 
-init : (Model, Cmd msg)
-init =
-  (Model 0 0 "It works!" [], Cmd.none)
+init : Flags -> (Model, Cmd msg)
+init flags =
+  (Model 0 0 0 "It works!" [], Cmd.none)
 
 
 -- UPDATE
@@ -86,6 +90,8 @@ view : Model -> Html.Html Msg
 view model =
   div []
     [ div [ style boxStyle ]
+        [ text <| "This app has been hot-swapped " ++ (toString model.swapCount) ++ " times." ]
+    , div [ style boxStyle ]
         [ h2 [] [ text "Counter" ]
         , button [ onClick Decrement ] [ text "-" ]
         , div [] [ text (toString model.count) ]
@@ -97,7 +103,7 @@ view model =
         ]
     , div [ style boxStyle ]
         [ h2 [] [ text "Outgoing Port" ]
-        , input [ type' "text", value model.alertText, onInput ChangeAlertText ] []
+        , input [ type_ "text", value model.alertText, onInput ChangeAlertText ] []
         , button [ onClick Alert ] [ text "call alert" ]
         ]
     , div [ style boxStyle ]
