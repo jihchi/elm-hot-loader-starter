@@ -24,7 +24,7 @@ module.exports = {
       {
         test: /\.elm$/,
         exclude: [/elm-stuff/, /node_modules/],
-        loader: 'elm-hot!elm-webpack?verbose=true&warn=true&debug=true'
+        loader: 'elm-hot!elm-webpack?verbose=true&warn=true&debug=true&cwd=' + __dirname
       }
     ],
 
@@ -34,7 +34,7 @@ module.exports = {
   plugins: [
     new CleanWebpackPlugin(['dist'], {
       root: __dirname,
-      verbose: true, 
+      verbose: true,
       dry: false
     }),
     new CopyWebpackPlugin([
